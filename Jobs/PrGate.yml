@@ -64,6 +64,10 @@ parameters:
   displayName: Install Build Tools
   type: boolean
   default: true
+- name: publish_artifacts
+  displayName: Additional Artifacts to Publish
+  type: string
+  default: ''
 
 # Build step
 jobs:
@@ -105,3 +109,4 @@ jobs:
         do_pr_eval: ${{ parameters.do_pr_eval }}
         tool_chain_tag: ${{ parameters.tool_chain_tag }}
         install_tools: ${{ parameters.install_tools }}
+        publish_artifacts: ${{ parameters.publish_artifacts }}

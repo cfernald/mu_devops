@@ -50,6 +50,10 @@ parameters:
   displayName: Install Build Tools
   type: boolean
   default: true
+- name: publish_artifacts
+  displayName: Additional Artifacts to Publish
+  type: string
+  default: ''
 
 steps:
 - checkout: self
@@ -165,6 +169,7 @@ steps:
       TestSuites.xml
       **/BUILD_TOOLS_REPORT.html
       **/OVERRIDELOG.TXT
+      ${{ parameters.publish_artifacts }}
     flattenFolders: true
   condition: succeededOrFailed()
 
