@@ -33,11 +33,11 @@ steps:
     script: |
       dotnet tool install -g dotnet-reportgenerator-globaltool
       reportgenerator -reports:$(Build.ArtifactStagingDirectory)/coverage/**/*coverage.xml -targetdir:$(Build.ArtifactStagingDirectory)/Coverage -reporttypes:Cobertura
-  condition: succeeded()
+  condition: gt(variables.coverage_file_count, 0)
 
 - task: PublishCodeCoverageResults@1
   displayName: Publish Code Coverage
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.ArtifactStagingDirectory)/Coverage/Cobertura.xml'
-  condition: succeeded()
+  condition: gt(variables.coverage_file_count, 0)
