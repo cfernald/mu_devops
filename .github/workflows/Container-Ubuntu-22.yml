@@ -12,11 +12,11 @@ name: "Ubuntu 22 Containers"
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ mu_containers ]
     paths:
       - 'Containers/Ubuntu-22/**'
   pull_request:
-    branches: [ main ]
+    branches: [ mu_containers ]
     paths:
       - 'Containers/Ubuntu-22/**'
 
