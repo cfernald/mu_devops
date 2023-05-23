@@ -58,6 +58,7 @@ jobs:
       - uses: dorny/paths-filter@v2
         id: changes
         with:
+          base: container_build_test
           filters: |
             dockerfile:
               - 'Containers/${{ matrix.image_name }}/Dockerfile'
