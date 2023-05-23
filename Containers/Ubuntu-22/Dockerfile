@@ -79,6 +79,8 @@ RUN wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/pac
     dpkg -i packages-microsoft-prod.deb && rm packages-microsoft-prod.deb && \
     apt-get update && apt-get install -y powershell && apt-get clean
 
+#CHANGE!
+
 #
 # Alternatives
 #
