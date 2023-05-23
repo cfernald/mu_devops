@@ -16,8 +16,8 @@ on:
     branches:
       - main
       - container_build_test
-    paths:
-      - "Containers/**/Dockerfile"
+    # paths:
+    #   - "Containers/**/Dockerfile"
   pull_request:
     branches:
       - main
@@ -55,7 +55,15 @@ jobs:
         run: echo "short_sha=$(git rev-parse --short $GITHUB_SHA)" >> $GITHUB_ENV
         shell: bash
 
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            dockerfile:
+              - 'Containers/${{ matrix.image_name }}/Dockerfile'
+
       - name: Build
+        if: steps.changes.outputs.dockerfile == 'true'
         run: |
           cd "Containers/${IMAGE_NAME}"
           for sub in $SUB_IMAGES; do
@@ -67,7 +75,7 @@ jobs:
         shell: bash
 
       - name: Push
-        if: ${{ github.ref == 'refs/heads/main' }}
+        if: ${{ github.ref == 'refs/heads/main' }} && steps.changes.outputs.dockerfile == 'true'
         run: |
           for sub in $SUB_IMAGES; do
             IMG=$(tr '[:upper:]' '[:lower:]' <<< "${REGISTRY}/${REPOSITORY}/${IMAGE_NAME}-${sub}")
