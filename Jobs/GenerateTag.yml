@@ -43,14 +43,6 @@ jobs:
         path: "mu_devops"
         fetchDepth: 1
 
-      - script: |
-          if [ -z "${{ parameters.major_version }}"] || \
-             [ -z "${{ parameters.git_name }}"] || \
-             [ -z "${{ parameters.git_email }}"] then
-            echo "##vso[task.complete result=Failed;]"
-          fi
-        displayName: "Check Parameters"
-
       - template: ../Steps/SetupPythonPreReqs.yml
         parameters:
           install_pip_modules: false
@@ -61,6 +53,14 @@ jobs:
         displayName: "Install Dependencies"
 
       - ${{ parameters.extra_prepare_steps }}
+
+      - script: |
+          if [ -z "${{ parameters.major_version }}"] || \
+             [ -z "${{ parameters.git_name }}"] || \
+             [ -z "${{ parameters.git_email }}"] then
+            echo "##vso[task.complete result=Failed;]"
+          fi
+        displayName: "Check Parameters"
 
       - script: |
           git config --global user.name "${{ parameters.git_name }}"
