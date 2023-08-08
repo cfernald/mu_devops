@@ -146,8 +146,7 @@ def generate_notes(version, commits, filepath, url):
     url - The URL of the repository.
     """
 
-    notes_file = open(filepath, 'a+')
-    notes_file.seek(0)
+    notes_file = open(filepath, 'r+')
     old_lines = notes_file.readlines()
     print(f"lines: {len(old_lines)}")
 
