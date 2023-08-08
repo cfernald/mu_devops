@@ -57,7 +57,8 @@ jobs:
       - script: |
           if [ -z "${{ parameters.major_version }}"] || \
              [ -z "${{ parameters.git_name }}"] || \
-             [ -z "${{ parameters.git_email }}"] then
+             [ -z "${{ parameters.git_email }}"]
+          then
             echo "##vso[task.complete result=Failed;]"
           fi
         displayName: "Check Parameters"
