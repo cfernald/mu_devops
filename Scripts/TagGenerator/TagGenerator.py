@@ -147,8 +147,9 @@ def generate_notes(version, commits, filepath, url):
     """
 
     notes_file = open(filepath, 'a+')
-    old_lines = notes_file.readlines()
     notes_file.seek(0)
+    old_lines = notes_file.readlines()
+    print(f"lines: {len(old_lines)}")
 
     # Collect all the notable changes
     breaking_changes = []
@@ -198,9 +199,11 @@ def generate_notes(version, commits, filepath, url):
     notes += "\n"
 
     # Add new notes at the top and write out existing content.
+    notes_file.seek(0)
     notes_file.write(notes)
     for line in old_lines:
         notes_file.write(line)
+    notes_file.close()
 
 
 def get_change_list(commits, url):
