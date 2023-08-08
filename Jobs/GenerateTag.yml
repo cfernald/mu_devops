@@ -37,10 +37,19 @@ jobs:
         fetchTags: true
         persistCredentials: true
         path: "target"
+        fetchDepth: 0
 
       - checkout: mu_devops
         path: "mu_devops"
-        fetchDepth: 0
+        fetchDepth: 1
+
+      - script: |
+          if [ -z "${{ parameters.major_version }}"] || \
+             [ -z "${{ parameters.git_name }}"] || \
+             [ -z "${{ parameters.git_email }}"] then
+            echo "##vso[task.complete result=Failed;]"
+          fi
+        displayName: "Check Parameters"
 
       - template: ../Steps/SetupPythonPreReqs.yml
         parameters:
